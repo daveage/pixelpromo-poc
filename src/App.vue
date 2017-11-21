@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <div id="menu">{{}}</div>
+    <img src="src/assets/logo_pixelpromo.png" />
+    <div id="menu">Tutaj</div>
     <router-view/>
   </div>
 </template>
