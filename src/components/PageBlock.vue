@@ -1,11 +1,11 @@
 <template>
-  <div class='ui centered card'>
+  <div class='block-container'>
     <div class="content" v-show="!isEditing">
       <div class='header'>
-          {{ pageBlock.title }}
+          {{ pageBlock.title }} <my-checkbox></my-checkbox>
       </div>
       <div class='meta'>
-          {{ pageBlock.project }}
+          {{ pageBlock.project }} - {{ pageBlock.templateId }} - {{ blockId }}
       </div>
       <div class='extra content'>
           <span class='right floated edit icon' v-on:click="showForm">
@@ -39,15 +39,30 @@
     <div class='ui bottom attached red basic button' v-on:click="completeTodo(pageBlock)" v-show="!isEditing && !pageBlock.done">
         Pending
     </div>
+    <block v-bind:data="pageBlock"></block>
   </div>
+
 </template>
 
 <script type="text/javascript">
+  import Block from './DynamicBlock';
+
   export default {
     props: ['pageBlock'],
+    components: {
+      Block,
+    },
     data() {
       return {
         isEditing: false,
+        comps: [{
+          template: this.pageBlock.template,
+            data: {
+              article: `It's the first dynamic template!`,
+              header: 'aaa'
+            }
+        }],
+        blockId: this.pageBlock.id
       };
     },
     methods: {
@@ -66,3 +81,26 @@
     },
   };
 </script>
+
+<style>
+	p.tasks {
+	  text-align: center;
+	}
+  .block-container {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin: 20px;
+  }
+
+	.header {
+
+  }
+
+  .content {
+
+  }
+
+  .field {
+
+  }
+</style>

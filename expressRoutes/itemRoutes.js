@@ -29,39 +29,51 @@ itemRoutes.route('/').get(function (req, res) {
   });
 });
 
-// Defined edit route
-itemRoutes.route('/edit/:id').get(function (req, res) {
-  var id = req.params.id;
-  Item.findById(id, function (err, item){
-      res.json(item);
-  });
-});
-
-//  Defined update route
-itemRoutes.route('/update/:id').post(function (req, res) {
-  Item.findById(req.params.id, function(err, item) {
-    if (!item)
-      return next(new Error('Could not load Document'));
+// Defined get data(index or listing) route
+itemRoutes.route('/page').get(function (req, res) {
+  Item.find(function (err, items){
+    if(err){
+      console.log(err);
+    }
     else {
-      item.name = req.body.name;
-      item.price = req.body.price;
-
-      item.save().then(item => {
-          res.json('Update complete');
-      })
-      .catch(err => {
-            res.status(400).send("unable to update the database");
-      });
+      res.json(items);
     }
   });
 });
-
-// Defined delete | remove | destroy route
-itemRoutes.route('/delete/:id').get(function (req, res) {
-  Item.findByIdAndRemove({_id: req.params.id}, function(err, item){
-		if(err) res.json(err);
-		else res.json('Successfully removed');
-	});
-});
-
+//
+// // Defined edit route
+// itemRoutes.route('/edit/:id').get(function (req, res) {
+//   var id = req.params.id;
+//   Item.findById(id, function (err, item){
+//       res.json(item);
+//   });
+// });
+//
+// //  Defined update route
+// itemRoutes.route('/update/:id').post(function (req, res) {
+//   Item.findById(req.params.id, function(err, item) {
+//     if (!item)
+//       return next(new Error('Could not load Document'));
+//     else {
+//       item.name = req.body.name;
+//       item.price = req.body.price;
+//
+//       item.save().then(item => {
+//           res.json('Update complete');
+//       })
+//       .catch(err => {
+//             res.status(400).send("unable to update the database");
+//       });
+//     }
+//   });
+// });
+//
+// // Defined delete | remove | destroy route
+// itemRoutes.route('/delete/:id').get(function (req, res) {
+//   Item.findByIdAndRemove({_id: req.params.id}, function(err, item){
+// 		if(err) res.json(err);
+// 		else res.json('Successfully removed');
+// 	});
+// });
+//
 module.exports = itemRoutes;

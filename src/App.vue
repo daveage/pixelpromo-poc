@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <img src="src/assets/logo_pixelpromo.png" />
-    <div id="menu">Tutaj</div>
     <router-view/>
   </div>
 </template>
@@ -11,6 +10,7 @@
 export default {
   name: 'app'
 }
+
 </script>
 
 <style>
@@ -24,5 +24,11 @@ export default {
 }
 #menu {
 
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0
 }
 </style>
